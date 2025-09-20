@@ -1,1 +1,1 @@
-![Alt text](site-image.png)
+![Alt text](images/site-image.png)
