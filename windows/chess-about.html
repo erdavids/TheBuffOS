@@ -1,0 +1,82 @@
+<div class="text-section-header">
+    <p>-----------------------</p>
+    <p>The Crooked Rook</p>
+    <p>-----------------------</p>
+</div>
+<div class="text-section">
+    <p>This is a (weak) chess engine that I created a few years ago to learn more about how they work. It was simpler
+        than I expected, but only thanks to the wealth of resources/tutorials available. Lots of the specific algorithm
+        implementation (especially related to positional scoring) are nothing original, but tons of fun to implement.
+    </p>
+    <p>I was also heavily inspired by a few throw-away lines in the show Lost about a computer terminal chess program
+        that apparently couldn't be trusted, because it could cheat. There may even be ways that the Crooked Rook will
+        turn things to his advantage if the game turns south...</p>
+</div>
+<div class="text-section-header">
+    <p>-----------------------</p>
+    <p>How does a chess engine work?</p>
+    <p>-----------------------</p>
+</div>
+<div class="text-section">
+    <p>Each player has a hidden "score" that they are trying to increase. The engine will evaluate moves in an attempt
+        to increase the score, or minimize loses.</p>
+    <p>The score's foundation is the total value of all remaining pieces. For example...</p>
+</div>
+<div class="information">
+    <p>Pawn value: 100</p>
+    <p>Rook value: 500</p>
+    <p>King value: 20000</p>
+</div>
+<div class="text-section">
+    <p>So, eliminating enmey pieces is an obvious way to increase the score, but positional scoring is also an important
+        influence.</p>
+    <p>In simplest terms, each piece has a reference guide on what positions are ideal.</p>
+    <p>Here's an example of the positional scoring system for the Black Knight...</p>
+</div>
+<div style="text-align: center; color: 
+#3e6958">
+    <p> var black_knight_eval_early = </p>
+    <p>[[-50, -40, -30, -30, -30, -30, -40, -50],</p>
+    <p>[-40, -20, 0, 0, 0, 0, -20, -40],</p>
+    <p>[-30, 5, 10, 15, 15, 10, 5, -30],</p>
+    <p>[-30, 0, 15, 20, 20, 15, 0, -30],</p>
+    <p>[-30, 5, 15, 20, 20, 15, 5, -30],</p>
+    <p>[-30, 0, 10, 15, 15, 10, 0, -30],</p>
+    <p>[-40, 20, 0, -5, -5, 0, 20, -40],</p>
+    <p>[-50, -40, -30, -30, -30, -30, -40, -50]];</p>
+</div>
+<div class="text-section">
+    <p>I'm certainly not skilled at using a Knight, but general advice would be to keep it near the center where its
+        reach across even two moves can be devastating, vs a weak position in the far corners. You can see how that
+        translates to this positional scoring reference.</p>
+    <p>Compare the Knight with the Black King...</p></div>
+    <div style="text-align: center; color: 
+#3e6958">
+        <p>var black_king_eval_early =</p>
+        <p>[[ 20, 30, 10, 0, 0, 10, 30, 20],</p>
+            <p>[ 20, 20, 0, 0, 0, 0, 20, 20],</p>
+            <p>[-10, -20, -20, -20, -20, -20, -20, -10],</p>
+            <p>[-20, -30, -30, -40, -40, -30, -30, -20],</p>
+            <p>[-30, -40, -40, -50, -50, -40, -40, -30],</p>
+            <p>[-30, -40, -40, -50, -50, -40, -40, -30],</p>
+            <p>[-30, -40, -40, -50, -50, -40, -40, -30],</p>
+            <p>[-30, -40, -40, -50, -50, -40, -40, -30]];</p>
+    </div>
+<div class="text-section">
+    <p>There is a little more side specific logic at play, albeit simple, for the King. Basically, don't just walk over
+        to the other side, brother.</p>
+    <p>The true power of these guidelines is that they would ideally be dynamic. The Crooked Rook is an incredibly
+        simple engine that never moves beyond early game strategy. But, pieces could have different goals for different
+        stages of play, and could shift their positional value on based on other pieces (where the king is for example).
+        The possibilities may not be quite as large as the potential moves in a Chess game, but certainly still far more
+        than what is represented by this project.</p>
+</div>
+<div class="text-section-header">
+    <p>-----------------------</p>
+    <p>But, how does strategy develop?</p>
+    <p>-----------------------</p>
+</div>
+<p>You would certainly think that the engine would always prioritize captures, but at higher difficulties, the engine is
+    not just comparing the current state of the board. It will evaluate additional permutations across future moves. Two fantastic moves mean nothing if they lead to the Queen being completely trapped.</p>
+<p>It is a combination of all these factors that make it feel like the engine has a genuine strategy and understanding of the game.</p>
+<p></p>

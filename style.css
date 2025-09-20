@@ -1,0 +1,267 @@
+/* #4b475c */
+/* #d7dedc */
+
+@import url("https://fonts.googleapis.com/css2?family=Special+Elite&display=swap");
+
+:root {
+  --bg: #2b2821;
+  --light-text: #e3cfb4;
+  --dark-text: #2b2821;
+  --link-text: #5c8b93;
+  --window-title-bg: #5c8b93;
+
+  /* Distinct colors I guess */
+}
+
+* {
+  font-size: 18px;
+}
+
+body {
+  margin: 0;
+  height: 95vh;
+  background: var(--bg);
+  font-family: monospace;
+  color: var(--dark-text);
+}
+
+.bottom-bar {
+  position: absolute;
+  width: 300px;
+  height: 2rem;
+  left: 10px;
+  /* line-height: 1.5rem; */
+  /* padding: 8px; */
+  margin: 0px 0px 0px 0px;
+  background: var(--window-title-bg);
+  bottom: 10px;
+  border: 1px solid var(--light-text);
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  /* image-rendering: pixelated; */
+}
+
+.window {
+  position: absolute;
+  width: 250px;
+  min-width: 300px;
+  min-height: 300px;
+  background: var(--light-text);
+  border: 3px solid var(--bg);
+  box-shadow: 10px 10px hsla(0, 0%, 0%, 0.2);
+  resize: both;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  /* image-rendering: pixelated; */
+  /* transition: height .1s, width .1s; */
+}
+
+.dark-window {
+  position: absolute;
+  width: 250px;
+  background: var(--light-text);
+  border: 3px solid var(--bg);
+  box-shadow: 10px 10px hsla(0, 0%, 0%, 0.5);
+  /* image-rendering: pixelated; */
+}
+
+.expanded {
+  transition: top 0.2s, left 0.2s, height 0.2s, width 0.2s;
+}
+
+.title-bar {
+  background: var(--window-title-bg);
+  color: var(--light-text);
+  border-bottom: 3px solid var(--bg);
+  padding: 4px 8px 4px 12px;
+  cursor: move;
+  font-weight: bold;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+
+.title-bar span {
+  flex: 1;
+  user-select: none;
+}
+
+.close {
+  background: #dc6250;
+  color: var(--light-text);
+  border: none;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-family: monospace;
+  font-weight: 100;
+  padding: 0;
+}
+
+.expand {
+  background: #3e6958;
+  color: var(--light-text);
+  border: none;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-family: monospace;
+  font-weight: 100;
+  margin-right: 12px;
+}
+
+.content {
+  flex: 1;
+  padding: 8px;
+  height: 100%;
+  /* max-height: 200px; */
+  overflow-y: auto;
+  /* margin-bottom: 2rem; */
+}
+
+a {
+  color: var(--link-text);
+  text-decoration: none;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.site-title {
+  /* margin: 0; */
+  color: var(--light-text);
+  font-weight: 800;
+}
+
+p {
+  margin: 0;
+}
+
+/* Chrome / Edge / Safari */
+.content::-webkit-scrollbar {
+  width: 15px;
+}
+.content::-webkit-scrollbar-track {
+  background: var(--light-text);
+}
+.content::-webkit-scrollbar-thumb {
+  background: var(--window-title-bg);
+  border: 2px solid var(--window-bg);
+}
+
+.chess-button {
+  padding: 4px 8px 4px 8px;
+  margin: 4px;
+  background: var(--window-title-bg);
+  color: var(--light-text);
+  border: none;
+}
+
+.desktop-icon {
+  padding: 10px;
+  /* position: absolute; */
+  /* width: 80px; */
+  text-align: center;
+  cursor: default;
+  user-select: none;
+}
+
+.desktop-icon img {
+  width: 64px;
+  height: 64px;
+  image-rendering: pixelated;
+}
+
+.desktop-icon span {
+  color: var(--light-text);
+  text-align: center;
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.desktop-icon:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+}
+
+.poem-text {
+  font-family: "Special Elite", system-ui;
+  font-weight: 400;
+}
+
+.poem-area {
+  flex: 1;
+  border: none;
+  background: transparent;
+  width: 90%;
+  border: none;
+  padding: 12px;
+  text-decoration: none;
+  overflow: hidden;
+}
+
+textarea:focus {
+  outline: none;
+}
+
+::-webkit-resizer {
+  background: var(--window-title-bg);
+
+  /*size does not work*/
+  display: block;
+  /* width: 150px !important;
+    height: 150px !important; */
+}
+
+.information {
+  color: #3e6958;
+}
+
+.text-section {
+  p {
+    margin-top: 1rem;
+  }
+
+  img {
+    display: block;
+    margin: auto;
+    max-width: 500px;
+  }
+}
+
+.text-section-header {
+  width: 60%;
+  margin: auto;
+  text-align: center;
+  color: #3e6958;
+}
+
+.image-in-window {
+  display: block;
+  margin: auto;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain; /* makes sure full image is visible */
+}
+
+.important-note {
+  border: 2px dashed #b03a48;
+  padding: 12px;
+  color: #b03a48;
+}
+
+.selection-box {
+  position: absolute;
+  border: solid 3px#5c8b9310;
+  background-color: #5d727540;
+  pointer-events: none;
+}

@@ -1,0 +1,48 @@
+<div class="window" id="chess" style="width: 650px;top: 150px; left: 200px;">
+    <div class="draggable title-bar">
+        <span>The Crooked Rook!</span>
+          <button class="expand">></button>
+        <button class="close">X</button>
+    </div>
+    <div class="content">
+        <div style="height: 100%; width:90%;margin: 0 auto; min-height: 100px">
+            <div class="project_block">
+                <div style="text-align:center">
+                    <p id="status" class="chess-button" onclick="change_all_colors">WHITE to move</p>
+                </div>
+
+                <div style="text-align:center" class="row_2">
+                    <div class="column_6">
+                        <div id="sketchdiv">
+                        </div>
+                    </div>
+                </div>
+                <div style="display: flex; flex-direction: row; text-align:center">
+                    <button style="flex: 1" id="chess-difficulty" class="chess-button"
+                        onclick="increase_difficulty()">Difficulty: 5/5</button>
+                    <button style="flex: 1" id="status" class="chess-button" onclick="reset_game()">New
+                        Game</button>
+                    <button style="flex: 1" id="status" class="chess-button" onclick="openHTMLWindow('chess-stats.html', 'Chess Stats', '100px', '100px', '650px', '200px')">Stats</button>
+                    <button style="flex: 1" id="status" class="chess-button" onclick="openHTMLWindow('chess-about.html', 'About Crooked Rook', '100px', '100px', '650px', '200px')">About</button>
+                </div>
+                <!-- <div style="text-align:center">
+                    <button id="diff-one" class="chess-button" onclick="set_difficulty_one()">1</button>
+                    <button id="diff-two" class="chess-button" onclick="set_difficulty_two()">2</button>
+                    <button id="diff-three" class="chess-button" onclick="set_difficulty_three()">3</button>
+                    <button id="diff-four" class="chess-button" onclick="set_difficulty_four()">4</button>
+                    <button id="diff-five" class="chess-button" onclick="set_difficulty_five()">5</button>
+
+                    |
+                    <button class="chess-button" onclick="reset_game()">New Game</button>
+                    |
+                    <button class="chess-button">About</button>
+                    <button class="chess-button" onclick="change_pieces_to_alpha()">Alpha</button>
+                        <button class="chess-button" onclick="change_pieces_to_kosal()">Kosal</button>
+                        <button class="chess-button" onclick="change_pieces_to_letter()">Letter</button>
+
+                </div> -->
+
+            </div>
+        </div>
+    </div>
+</div>
