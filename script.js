@@ -199,6 +199,10 @@ function openHTMLWindow(filename, title, top, left, width, height) {
     });
 }
 
+function openDirectoryWindow() {
+  
+}
+
 // Load seperately to avoid huge performance from having it "hidden"
 function loadChess() {
   // Prevent double-loading

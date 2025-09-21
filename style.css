@@ -13,33 +13,43 @@
   /* Distinct colors I guess */
 }
 
-* {
+/* * {
   font-size: 18px;
-}
+} */
 
 body {
   margin: 0;
   height: 95vh;
   background: var(--bg);
+  font-size: 18px;
   font-family: monospace;
   color: var(--dark-text);
 }
 
 .bottom-bar {
   position: absolute;
-  width: 300px;
-  height: 2rem;
-  left: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  height: 1.5rem;
+  left: 0px;
   /* line-height: 1.5rem; */
   /* padding: 8px; */
   margin: 0px 0px 0px 0px;
-  background: var(--window-title-bg);
-  bottom: 10px;
+  background: var(--light-text);
+  bottom: 0px;
   border: 1px solid var(--light-text);
   display: flex;
   justify-content: left;
   align-items: center;
   /* image-rendering: pixelated; */
+  padding-left: 12px;
+  padding-right: 12px;
+  font-size: .8rem;
+  color: var(--dark-text);
+}
+
+.site-title {
+  flex: 1;
 }
 
 .window {
@@ -130,12 +140,6 @@ a {
 
 a:hover {
   text-decoration: underline;
-}
-
-.site-title {
-  /* margin: 0; */
-  color: var(--light-text);
-  font-weight: 800;
 }
 
 p {
