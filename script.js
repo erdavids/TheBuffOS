@@ -200,7 +200,7 @@ function openHTMLWindow(filename, title, top, left, width, height) {
 }
 
 function openDirectoryWindow() {
-  
+
 }
 
 // Load seperately to avoid huge performance from having it "hidden"
@@ -348,3 +348,24 @@ function observe() {
     resizeObserver.observe(w);
   }
 }
+
+// TIME STUFF
+function updateTime() {
+  let options = {  
+    weekday: "long", year: "numeric", month: "short",  
+    day: "numeric", hour: "2-digit", minute: "2-digit"  
+};  
+  let d = new Date();
+  document.getElementById('clock-time').innerText = d.toLocaleString("en-us", options)
+}
+
+const clock = setInterval(() => {
+  console.log(`Loop iteration: ${counter}`);
+  counter++;
+
+  if (counter >= 5) {
+    clearInterval(myInterval); // Stop the interval after 5 iterations
+  }
+}, 60000); // Every minute?
+
+updateTime()
