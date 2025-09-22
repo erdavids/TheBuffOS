@@ -149,6 +149,56 @@ function openTextWindow(filename, title) {
     });
 }
 
+function openProject(filename, title, top, left, width, height) {
+  fetch(`projects/${filename}`)
+    .then((response) => response.text())
+    .then((html) => {
+      // Create a new window
+      const win = document.createElement("div");
+      win.className = "window";
+      win.style.top = top;
+      win.style.left = left;
+      win.style.width = width;
+      win.style.height = height;
+
+      win.innerHTML = `
+        <div class="draggable title-bar">
+          <span>${title}</span>
+          <button class="expand">></button>
+          <button class="close">X</button>
+        </div>
+        <div class="content">
+        <iframe src="projects/${filename}" style="width:100%; height: 100%; border: none;">
+        </iframe>
+      `;
+
+      document.body.appendChild(win);
+
+      // Hook close button
+      win.querySelector(".close").addEventListener("click", () => {
+        win.remove();
+      });
+
+      win.querySelector(".expand").addEventListener("click", () => {
+        win.classList.add("expanded");
+        win.style.width = "50%";
+        win.style.height = "100%";
+        win.style.left = "50%";
+        win.style.top = "0px";
+        setInterval(() => {
+          win.classList.remove("expanded");
+        }, 500);
+      });
+
+      // Animate in
+      requestAnimationFrame(() => win.classList.add("show"));
+    })
+    .catch((err) => console.error("Error loading HTML:", err))
+    .finally(() => {
+      refreshDraggable();
+    });
+}
+
 function openHTMLWindow(filename, title, top, left, width, height) {
   fetch(`windows/${filename}`)
     .then((response) => response.text())
@@ -360,12 +410,7 @@ function updateTime() {
 }
 
 const clock = setInterval(() => {
-  console.log(`Loop iteration: ${counter}`);
-  counter++;
-
-  if (counter >= 5) {
-    clearInterval(myInterval); // Stop the interval after 5 iterations
-  }
+  updateTime()
 }, 60000); // Every minute?
 
 updateTime()

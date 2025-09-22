@@ -85,7 +85,7 @@ body {
   background: var(--window-title-bg);
   color: var(--light-text);
   border-bottom: 3px solid var(--bg);
-  padding: 4px 8px 4px 12px;
+  padding: 2px 8px 2px 12px;
   cursor: move;
   font-weight: bold;
   display: flex;
@@ -99,27 +99,28 @@ body {
 }
 
 .close {
-  background: #dc6250;
+  background: #b03a48;
   color: var(--light-text);
   border: none;
-  width: 30px;
-  height: 30px;
+  width: 24px;
+  height: 24px;
   cursor: pointer;
   font-family: monospace;
   font-weight: 100;
-  padding: 0;
+  align-items: center;
+  justify-content: center;
 }
 
 .expand {
   background: #3e6958;
   color: var(--light-text);
   border: none;
-  width: 30px;
-  height: 30px;
+  width: 24px;
+  height: 24px;
   cursor: pointer;
   font-family: monospace;
   font-weight: 100;
-  margin-right: 12px;
+  margin-right: 6px;
 }
 
 .content {
