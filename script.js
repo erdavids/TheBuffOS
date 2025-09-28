@@ -2,6 +2,13 @@ let selectionBox = null;
 let startX = 0;
 let startY = 0;
 
+const windowSizeDefault = {
+  top: "20%",
+  left: "25%",
+  width: "50%",
+  height: "60%",
+};
+
 const resizeObserver = new ResizeObserver((entries) => {
   removeSelectionBox();
 });
@@ -46,35 +53,7 @@ function makeDraggable(el) {
   });
 }
 
-function openWindow(id) {
-  const win = document.getElementById(id);
-  if (win) {
-    win.style.display = "block";
-    win.style.zIndex = Date.now(); // bring to front
-  }
-
-  refreshDraggable();
-}
-
-function openImage(filename, title, { width = "650px" } = {}) {
-  // Create a new window
-  const win = document.createElement("div");
-  win.className = "image-window window"; // reuse your window CSS/animations
-  win.style.top = "100px";
-  win.style.left = "100px";
-  win.style.width = width;
-
-  win.innerHTML = `
-    <div class="draggable title-bar">
-      <span>${title}</span>
-      <button class="expand">></button>
-      <button class="close">X</button>
-    </div>
-    <div class="content">
-      <img class="image-in-window" src="images/${filename}" alt="${title}" />
-    </div>
-  `;
-
+function openWindow(win) {
   document.body.appendChild(win);
 
   // Hook close button
@@ -94,22 +73,51 @@ function openImage(filename, title, { width = "650px" } = {}) {
   });
 
   // Animate in
-  requestAnimationFrame(() => win.classList.add("show"));
+  // requestAnimationFrame(() => win.classList.add("show"));
+
+  refreshDraggable();
+}
+
+function openImage(filename, title, options = {}) {
+  const opts = { ...windowSizeDefault, ...options };
+  // Create a new window
+  const win = document.createElement("div");
+  win.className = "image-window window"; // reuse your window CSS/animations
+  win.style.top = opts.top;
+  win.style.left = opts.left;
+  win.style.width = opts.width;
+  win.style.height = opts.height;
+
+  win.innerHTML = `
+    <div class="draggable title-bar">
+      <span>${title}</span>
+      <button class="expand">></button>
+      <button class="close">X</button>
+    </div>
+    <div class="content">
+      <img class="image-in-window" src="images/${filename}" alt="${title}" />
+    </div>
+  `;
+
+  openWindow(win);
 
   // Make draggable again
   refreshDraggable();
 }
 
-function openTextWindow(filename, title) {
+function openTextWindow(filename, title, options = {}) {
+  const opts = { ...windowSizeDefault, ...options };
+
   fetch(`texts/${filename}`)
     .then((response) => response.text())
     .then((text) => {
       // Create a new window
       const win = document.createElement("div");
       win.className = "window"; // reuse your window CSS/animations
-      win.style.top = "100px";
-      win.style.left = "100px";
-      win.style.width = "400px";
+      win.style.top = opts.top;
+      win.style.left = opts.left;
+      win.style.width = opts.width;
+      win.style.height = opts.height;
 
       win.innerHTML = `
         <div class="draggable title-bar">
@@ -122,26 +130,7 @@ function openTextWindow(filename, title) {
         </div>
       `;
 
-      document.body.appendChild(win);
-
-      // Hook close button
-      win.querySelector(".close").addEventListener("click", () => {
-        win.remove();
-      });
-
-      win.querySelector(".expand").addEventListener("click", () => {
-        win.classList.add("expanded");
-        win.style.width = "50%";
-        win.style.height = "100%";
-        win.style.left = "50%";
-        win.style.top = "0px";
-        setInterval(() => {
-          win.classList.remove("expanded");
-        }, 500);
-      });
-
-      // Animate in
-      requestAnimationFrame(() => win.classList.add("show"));
+      openWindow(win);
     })
     .catch((err) => console.error("Error loading file:", err))
     .finally(() => {
@@ -149,17 +138,19 @@ function openTextWindow(filename, title) {
     });
 }
 
-function openProject(filename, title, top, left, width, height) {
+function openProject(filename, title, options = {}) {
+  const opts = { ...windowSizeDefault, ...options };
+
   fetch(`projects/${filename}`)
     .then((response) => response.text())
     .then((html) => {
       // Create a new window
       const win = document.createElement("div");
       win.className = "window";
-      win.style.top = top;
-      win.style.left = left;
-      win.style.width = width;
-      win.style.height = height;
+      win.style.top = opts.top;
+      win.style.left = opts.left;
+      win.style.width = opts.width;
+      win.style.height = opts.height;
 
       win.innerHTML = `
         <div class="draggable title-bar">
@@ -167,31 +158,12 @@ function openProject(filename, title, top, left, width, height) {
           <button class="expand">></button>
           <button class="close">X</button>
         </div>
-        <div class="content">
+        <div class="content" style="overflow:hidden">
         <iframe src="projects/${filename}" style="width:100%; height: 100%; border: none;">
         </iframe>
       `;
 
-      document.body.appendChild(win);
-
-      // Hook close button
-      win.querySelector(".close").addEventListener("click", () => {
-        win.remove();
-      });
-
-      win.querySelector(".expand").addEventListener("click", () => {
-        win.classList.add("expanded");
-        win.style.width = "50%";
-        win.style.height = "100%";
-        win.style.left = "50%";
-        win.style.top = "0px";
-        setInterval(() => {
-          win.classList.remove("expanded");
-        }, 500);
-      });
-
-      // Animate in
-      requestAnimationFrame(() => win.classList.add("show"));
+      openWindow(win);
     })
     .catch((err) => console.error("Error loading HTML:", err))
     .finally(() => {
@@ -199,17 +171,19 @@ function openProject(filename, title, top, left, width, height) {
     });
 }
 
-function openHTMLWindow(filename, title, top, left, width, height) {
+function openHTMLWindow(filename, title, options = {}) {
+  const opts = { ...windowSizeDefault, ...options };
+
   fetch(`windows/${filename}`)
     .then((response) => response.text())
     .then((html) => {
       // Create a new window
       const win = document.createElement("div");
       win.className = "window";
-      win.style.top = top;
-      win.style.left = left;
-      win.style.width = width;
-      win.style.height = height;
+      win.style.top = opts.top;
+      win.style.left = opts.left;
+      win.style.width = opts.width;
+      win.style.height = opts.height;
 
       win.innerHTML = `
         <div class="draggable title-bar">
@@ -222,26 +196,7 @@ function openHTMLWindow(filename, title, top, left, width, height) {
         </div>
       `;
 
-      document.body.appendChild(win);
-
-      // Hook close button
-      win.querySelector(".close").addEventListener("click", () => {
-        win.remove();
-      });
-
-      win.querySelector(".expand").addEventListener("click", () => {
-        win.classList.add("expanded");
-        win.style.width = "50%";
-        win.style.height = "100%";
-        win.style.left = "50%";
-        win.style.top = "0px";
-        setInterval(() => {
-          win.classList.remove("expanded");
-        }, 500);
-      });
-
-      // Animate in
-      requestAnimationFrame(() => win.classList.add("show"));
+      openWindow(win);
     })
     .catch((err) => console.error("Error loading HTML:", err))
     .finally(() => {
@@ -249,9 +204,7 @@ function openHTMLWindow(filename, title, top, left, width, height) {
     });
 }
 
-function openDirectoryWindow() {
-
-}
+function openDirectoryWindow() {}
 
 // Load seperately to avoid huge performance from having it "hidden"
 function loadChess() {
@@ -290,13 +243,6 @@ function loadChess() {
       });
 
       makeDraggable(chessWin);
-
-      // if (!document.getElementById("chess-script")) {
-      //   const script = document.createElement("script");
-      //   script.src = "projects/crooked-rook/chess-engine.js";
-      //   script.id = "chess-script";
-      //   document.body.appendChild(script);
-      // }
     })
     .finally(() => {
       start_chess();
@@ -401,16 +347,73 @@ function observe() {
 
 // TIME STUFF
 function updateTime() {
-  let options = {  
-    weekday: "long", year: "numeric", month: "short",  
-    day: "numeric", hour: "2-digit", minute: "2-digit"  
-};  
+  let options = {
+    weekday: "long",
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  };
   let d = new Date();
-  document.getElementById('clock-time').innerText = d.toLocaleString("en-us", options)
+  document.getElementById("clock-time").innerText = d.toLocaleString(
+    "en-us",
+    options
+  );
 }
 
 const clock = setInterval(() => {
-  updateTime()
+  updateTime();
 }, 60000); // Every minute?
 
-updateTime()
+updateTime();
+
+// AUTO OPEN CERTAIN WINDOWS ON WEBSITE LOAD?
+document.addEventListener("DOMContentLoaded", () => {
+  let open_default = true;
+  const url = new URL(window.location.href);
+
+  const apps = url.searchParams.getAll("app");
+  console.log(apps);
+  if (apps && apps.length > 0) {
+    open_default = false;
+  }
+
+  // Launch each requested app window
+  apps.forEach((name) => {
+    launch(name);
+  });
+
+  // const comma_apps = url.searchParams.get_all("apps");
+  // comma_apps.forEach((name) => )
+
+  // By Default open some of these things
+  if (open_default) {
+    openHTMLWindow("about-me.html", "Start Here", {
+      left: "50%",
+      top: "50px",
+      width: "800px",
+      height: "50%",
+    });
+  }
+});
+
+function launch(name) {
+  switch (name) {
+    case "qyllscape":
+      openProject("qyllscape/qyllscape.html", "Qyllscape");
+      break;
+    case "chess":
+    case "crooked-rook":
+      loadChess();
+      break;
+    case "turtle-tile":
+      openProject("turtle-tile/turtle-tile.html", "Turtle Tile");
+      break;
+    case "incre":
+      openProject("increbuffed/index.html", "Incremental exp");
+      break;
+    default:
+      break;
+  }
+}

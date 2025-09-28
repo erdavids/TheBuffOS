@@ -1,0 +1,197 @@
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+
+<body>
+  <div class="headerBanner">
+    a game made by Eric Davidson
+  </div>
+  <div class="columnContainer">
+    <div class="columnOne">
+      <p class="headerTwo" id="myGoalsHeader">Stats</h3>
+      <div class="resourcesDiv" id="resources">
+        <span class="headerThree">Understanding: </span>
+        <span class="headerThree rightAligned" id="understanding">0%</span>
+        <div class="headerThree" id="thoseThatUnderstandSection">
+          <span>Those that understand: </span>
+          <span class="rightAligned" id="thoseThatUnderstand">10</span>
+        </div>
+        <div class="headerThree" id="thoseThatUnderstandSection">
+          <span>Money: </span>
+          <span class="rightAligned" id="moneyValue">$100,000</span>
+        </div>
+      </div>
+      <p class="headerTwo" id="myGoalsHeader">My goals</h3>
+      <div class="goalDiv" id="goals">I want to make money from developing fun incremental games, provide financial
+        security for those around me, answer a few important questions, develop an interstellar shipping empire, have my
+        revenge, and eventually cross beyond the event horizon of a black hole to find the answers to questions no one
+        has
+        thought to ask.</div>
+      <button class="readButton" type="button" onclick="updateUnderstanding(1)">
+        Read it
+      </button>
+      <button class="readButton" type="button" onclick="updateUnderstanding(-1)">
+        unread it
+      </button>
+      <button class="makeAnotherUnderstandButton" type="button" onclick="updateThoseThatUnderstand(1)">
+        Make another understand
+      </button>
+      <!-- <div id="thoseThatUnderstandSection" style="display: none">
+        <span>Those that understand: </span>
+        <span id="thoseThatUnderstand">2</span>
+      </div> -->
+      <div id="thoughts" style="display: none">
+        <p class="headerTwo" id="myGoalsHeader">My thoughts</h3>
+        <div id="eventMessages"></div>
+      </div>
+      <p class="headerTwo" id="myQuestionsHeader">My questions and tentative answers</p>
+      <div class="questionsDiv" id="questions">
+        <div class="headerThree" id="areWeAloneSection">
+          <span>Are we alone?</span>
+          <span class="rightAligned" id="areWeAloneAnswer">Unsure</span>
+        </div>
+      </div>
+
+    </div>
+    <!-- COLUMN TWO -->
+
+    <div class="columnTwo">
+      <p class="headerTwo" id="myGoalsHeader">Game Studio</h3>
+      <div class="gameStudioDiv" id="resources">
+        <div class="tab-container">
+          <div class="tab-buttons">
+            <button data-tab="tab1">Company</button>
+            <button data-tab="tab2">Development</button>
+            <button data-tab="tab3">Improvements</button>
+          </div>
+
+          <div class="tab-content" id="tab1" style="display:none;">
+            <div class="upgradeRow" style="border: 1px solid red">
+              <span style="width: 100%; border: 1px solid red" class="headerThree">Company size: </span>
+              <span class="headerThree" id="gameStudioEmployeeCount">1</span>
+              <button style="white-space: nowrap;" onclick="updateEmployeeCount(1)" class="rightAligned">Assign</button>
+            </div>
+            <div class="upgradeRow">
+              <span style="width: 100%;" class="upgradeRowName headerThree">Expertise: </span>
+              <span style="white-space: nowrap;" class="headerThree" id="gameStudioEmployeeCount">0%</span>
+            </div>
+            <div class="upgradeRow">
+              <span style="width: 100%;" class="upgradeRowName headerThree">Popularity: </span>
+              <span style="white-space: nowrap;" class="headerThree" id="gameStudioEmployeeCount">0 fans</span>
+            </div>
+            <div class="upgradeRow">
+              <span style="width: 100%;" class="upgradeRowName headerThree">Development Strategy: </span>
+              <span style="white-space: nowrap;" class="headerThree" id="gameStudioEmployeeCount">Pretty much
+                random</span>
+            </div>
+
+
+          </div>
+          <div class="tab-content" id="tab2">
+            <div class="upgradeRow">
+              <span class="upgradeRowMainText headerThree">Genre: </span>
+              <span class="upgradeRowStat headerThree" id="gameStudioEmployeeCount">rpg</span>
+              <select onchange="gameGenreSelected(this.value)">
+                <option>Incremental/Clicker</option>
+                <option>RPG</option>
+                <option>Simulation</option>
+              </select>
+            </div>
+            <div class="upgradeRow">
+              <span class="upgradeRowMainText headerThree">Estimated audience size: </span>
+              <span class="upgradeRowStat headerThree" id="gameStudioEmployeeCount">149,000</span>
+            </div>
+            <div class="upgradeRow">
+              <span class="upgradeRowMainText headerThree">Variable luck: </span>
+              <span class="upgradeRowStat headerThree" id="gameStudioEmployeeCount">-12% / 11%</span>
+            </div>
+            <div class="upgradeRow">
+              <span class="upgradeRowMainText headerThree">Minimum interest: </span>
+              <span class="upgradeRowStat headerThree" id="gameStudioEmployeeCount">11%</span>
+            </div>
+            <button class="readButton" onclick="createGame()">Develop New Game</button>
+            <div class="upgradeRow">
+              <span class="upgradeRowMainText">Employee Contributions:</span>
+              <span id="developingGameCurrentEmployee">1</span>/<span id="developingGameEmployeeMax">10</span>
+            </div>
+            <div class="upgradeRow">
+              <span class="upgradeRowMainText">Quality: </span>
+              <span class="upgradeRowStat" id="currentGameQualityValueElement">32%</span>
+              <progress class="upgradeRowProgress" id="currentGameQualityProgressElement" value="32"
+                max="100">32%</progress>
+            </div>
+            <div class="upgradeRow">
+              <span class="upgradeRowMainText">Innovation: </span>
+              <span class="upgradeRowStat" id="currentGameInnovationValueElement">32%</span>
+              <progress class="upgradeRowProgress" id="currentGameInnovationProgressElement" value="32"
+                max="100">32%</progress>
+            </div>
+            <div class="upgradeRow">
+              <span class="upgradeRowMainText">Chance to understand: </span>
+              <span class="upgradeRowStat" id="currentGameInnovationValueElement">0%</span>
+              <progress class="upgradeRowProgress" id="currentGameInnovationProgressElement" value="0"
+                max="100">32%</progress>
+            </div>
+            <button id="releaseGameButton" class="readButton" onclick="releaseGame()">Release Game</button>
+            <div class="upgradeRow">
+              <span class="upgradeRowMainText">Days following Release:</span>
+              <span id="daysAfterGameRelease">1</span>
+            </div>
+            <div class="upgradeRow">
+              <span class="upgradeRowMainText">Copies sold: </span>
+              <span class="upgradeRowStat" id="currentGameCopiesSold">--</span>
+            </div>
+            <div class="upgradeRow">
+              <span class="upgradeRowMainText">Total revenue: </span>
+              <span class="upgradeRowStat" id="currentGameTotalRevenue">--</span>
+            </div>
+            <div class="upgradeRow">
+              <span class="upgradeRowMainText">Those that now understand: </span>
+              <span class="upgradeRowStat" id="currentGameQualityValueElement">--</span>
+            </div>
+
+
+          </div>
+          <div class="tab-content" id="tab3" style="display:none;">This is Tab 3 content.</div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- COLUMN THREE -->
+    <div class="columnThree">
+      <div class="tab-container">
+        <div class="tab-buttons">
+          <button data-tab="tab1">Tab 1</button>
+          <button data-tab="tab2">Tab 2</button>
+          <button data-tab="tab3">Tab 3</button>
+        </div>
+
+        <div class="tab-content" id="tab1">This is Tab 1 content.</div>
+        <div class="tab-content" id="tab2" style="display:none;">This is Tab 2 content.</div>
+        <div class="tab-content" id="tab3" style="display:none;">This is Tab 3 content.</div>
+      </div>
+
+      <div class="tab-container">
+        <div class="tab-buttons">
+          <button data-tab="tab1">Tab 1</button>
+          <button data-tab="tab2">Tab 2</button>
+          <button data-tab="tab3">Tab 3</button>
+        </div>
+
+        <div class="tab-content" id="tab1">This is Tab 1 content.</div>
+        <div class="tab-content" id="tab2" style="display:none;">This is Tab 2 content.</div>
+        <div class="tab-content" id="tab3" style="display:none;">This is Tab 3 content.</div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="elements.js"></script>
+  <script type="text/javascript" src="thoughts.js"></script>
+  <script type="text/javascript" src="main.js"></script>
+  <script type="text/javascript" src="boros.js"></script>
+  <script type="text/javascript" src="timers.js"></script>
+</body>
+
+</html>
